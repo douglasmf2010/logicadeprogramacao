@@ -1,0 +1,23 @@
+div table tr td {
+    background-color: black;
+    color: aliceblue;
+}
+
+body{
+    margin: 0;
+}
+p{
+    background-color: blue;
+    color:rgb(0, 0, 0);
+    font-size: 18;
+    border-radius: 10000000000;
+}
+h1{
+    text-align: center;
+    color: rgb(245, 188, 232);
+    background-color: black;
+}
+img{
+    height: 200px;
+    width: 200px;
+}
