@@ -1,0 +1,146 @@
+!<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quiz de Programação</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h1, h2 {
+      text-align: center;
+    }
+
+    .question {
+      display: none;
+    }
+
+    .question.active {
+      display: block;
+    }
+
+    .answers label {
+      display: block;
+      margin: 10px 0;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      margin-top: 20px;
+      padding: 10px;
+      font-size: 16px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #result {
+      text-align: center;
+      font-weight: bold;
+      font-size: 20px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Quiz de Programação</h1>
+
+    <!-- Pergunta 1 -->
+    <div class="question active" id="q1">
+      <h2>1. Qual tag é usada para criar um link em HTML?</h2>
+      <div class="answers">
+        <label><input type="radio" name="q1" value="a"> &lt;link&gt;</label>
+        <label><input type="radio" name="q1" value="b"> &lt;a&gt;</label>
+        <label><input type="radio" name="q1" value="c"> &lt;href&gt;</label>
+      </div>
+      <button onclick="nextQuestion(1)">Próxima</button>
+    </div>
+
+    <!-- Pergunta 2 -->
+    <div class="question" id="q2">
+      <h2>2. Qual dessas linguagens é usada para estilizar páginas web?</h2>
+      <div class="answers">
+        <label><input type="radio" name="q2" value="a"> JavaScript</label>
+        <label><input type="radio" name="q2" value="b"> HTML</label>
+        <label><input type="radio" name="q2" value="c"> CSS</label>
+      </div>
+      <button onclick="nextQuestion(2)">Próxima</button>
+    </div>
+
+    <!-- Pergunta 3 -->
+    <div class="question" id="q3">
+      <h2>3. Qual função do JavaScript é usada para imprimir algo no console?</h2>
+      <div class="answers">
+        <label><input type="radio" name="q3" value="a"> print()</label>
+        <label><input type="radio" name="q3" value="b"> console.log()</label>
+        <label><input type="radio" name="q3" value="c"> echo()</label>
+      </div>
+      <button onclick="showResult()">Ver Resultado</button>
+    </div>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function nextQuestion(current) {
+      const currentDiv = document.getElementById(`q${current}`);
+      const nextDiv = document.getElementById(`q${current + 1}`);
+      const selected = document.querySelector(`input[name="q${current}"]:checked`);
+
+      if (!selected) {
+        alert("Por favor, selecione uma resposta.");
+        return;
+      }
+
+      currentDiv.classList.remove('active');
+      nextDiv.classList.add('active');
+    }
+
+    function showResult() {
+      const currentDiv = document.getElementById('q3');
+      const selected = document.querySelector(`input[name="q3"]:checked`);
+      if (!selected) {
+        alert("Por favor, selecione uma resposta.");
+        return;
+      }
+
+      currentDiv.classList.remove('active');
+
+      const respostasCorretas = {
+        q1: 'b',
+        q2: 'c',
+        q3: 'b'
+      };
+
+      let score = 0;
+
+      for (let key in respostasCorretas) {
+        const selectedAnswer = document.querySelector(`input[name="${key}"]:checked`);
+        if (selectedAnswer && selectedAnswer.value === respostasCorretas[key]) {
+          score++;
+        }
+      }
+
+      const total = Object.keys(respostasCorretas).length;
+      document.getElementById('result').textContent = `Você acertou ${score} de ${total} perguntas.`;
+    }
+  </script>
+</body>
+</html>
