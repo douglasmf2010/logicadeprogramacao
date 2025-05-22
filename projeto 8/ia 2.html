@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <title>Quiz Multiplas Escolhas</title>
+    <style>
+        body {
+            background: #0f172a;
+            color: #f8fafc;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .card {
+            background: #1e293b;
+            border-radius: 16px;
+            padding: 30px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+        }
+        h1 {
+            color: #38bdf8;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .question {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+        .options {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+        .options li {
+            margin-bottom: 12px;
+        }
+        label {
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 8px 12px;
+            display: block;
+            border-radius: 8px;
+            background-color: #334155;
+            transition: background-color 0.3s ease;
+        }
+        input[type="radio"] {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        label:hover {
+            background-color: #475569;
+        }
+        .btn {
+            background-color: #38bdf8;
+            border: none;
+            padding: 12px 25px;
+            font-weight: bold;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            color: #0f172a;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+        .btn:hover {
+            background-color: #0ea5e9;
+        }
+        .feedback {
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        .correct {
+            color: #22c55e;
+        }
+        .incorrect {
+            color: #ef4444;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h1>Quiz de Programação</h1>
+        <div id="quiz-container">
+            <div class="question" id="question"></div>
+            <ul class="options" id="options"></ul>
+            <div class="feedback" id="feedback"></div>
+            <button class="btn" id="next-btn" disabled>Próxima</button>
+        </div>
+    </div>
+
+    <script>
+        // Array de perguntas com alternativas e índice da correta
+        const perguntas = [
+            {
+                pergunta: "Qual linguagem usamos para estruturar páginas web?",
+                opcoes: ["CSS", "HTML", "JavaScript", "Python"],
+                correta: 1
+            },
+            {
+                pergunta: "Qual linguagem é usada para estilizar páginas web?",
+                opcoes: ["HTML", "JavaScript", "CSS", "C++"],
+                correta: 2
+            },
+            {
+                pergunta: "Qual tag HTML define um parágrafo?",
+                opcoes: ["<p>", "<h1>", "<div>", "<span>"],
+                correta: 0
+            },
+            {
+                pergunta: "Qual propriedade CSS muda a cor do texto?",
+                opcoes: ["color", "background", "font-size", "margin"],
+                correta: 0
+            },
+            {
+                pergunta: "Qual linguagem roda no navegador para tornar a página interativa?",
+                opcoes: ["JavaScript", "PHP", "SQL", "Java"],
+                correta: 0
+            }
+        ];
+
+        // Embaralha o array perguntas (Fisher-Yates)
+        function embaralharArray(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+        }
+
+        embaralharArray(perguntas);
+
+        let indiceAtual = 0;
+        const questionEl = document.getElementById('question');
+        const optionsEl = document.getElementById('options');
+        const feedbackEl = document.getElementById('feedback');
+        const nextBtn = document.getElementById('next-btn');
+
+        function carregarPergunta() {
+            feedbackEl.textContent = '';
+            nextBtn.disabled = true;
+            optionsEl.innerHTML = '';
+
+            const perguntaAtual = perguntas[indiceAtual];
+            questionEl.textContent = perguntaAtual.pergunta;
+
+            perguntaAtual.opcoes.forEach((opcao, i) => {
+                const li = document.createElement('li');
+
+                const label = document.createElement('label');
+                label.htmlFor = 'opcao' + i;
+                label.textContent = opcao;
+
+                const input = document.createElement('input');
+                input.type = 'radio';
+                input.name = 'opcoes';
+                input.id = 'opcao' + i;
+                input.value = i;
+
+                input.addEventListener('change', () => {
+                    checarResposta(i);
+                });
+
+                label.prepend(input);
+                li.appendChild(label);
+                optionsEl.appendChild(li);
+            });
+        }
+
+        function checarResposta(opcaoSelecionada) {
+            const perguntaAtual = perguntas[indiceAtual];
+            feedbackEl.style.color = '';
+            if (opcaoSelecionada === perguntaAtual.correta) {
+                feedbackEl.textContent = 'Resposta correta! 🎉';
+                feedbackEl.className = 'feedback correct';
+            } else {
+                feedbackEl.textContent = `Resposta incorreta! 😢 A resposta certa é "${perguntaAtual.opcoes[perguntaAtual.correta]}".`;
+                feedbackEl.className = 'feedback incorrect';
+            }
+            nextBtn.disabled = false;
+        }
+
+        nextBtn.addEventListener('click', () => {
+            indiceAtual++;
+            if (indiceAtual < perguntas.length) {
+                carregarPergunta();
+            } else {
+                finalizarQuiz();
+            }
+        });
+
+        function finalizarQuiz() {
+            questionEl.textContent = "Parabéns! Você terminou o quiz.";
+            optionsEl.innerHTML = '';
+            feedbackEl.textContent = '';
+            nextBtn.style.display = 'none';
+        }
+
+        // Começa carregando a primeira pergunta
+        carregarPergunta();
+    </script>
+
+</body>
+</html>
