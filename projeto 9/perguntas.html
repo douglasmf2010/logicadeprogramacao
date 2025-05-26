@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perguntas</title>
+    <link rel="stylesheet" href="css.css">
+</head>
+<body>
+
+    <div id="quiz-container">
+        <label for="pergunta">Pergunta:</label>
+        <div id="pergunta"></div>
+        <div id="opcoes"></div>
+        <button id="proxima" style="display:none;">Próxima Pergunta</button>
+        <div id="resultado"></div>
+    </div>
+
+    <script>
+        const perguntas = [
+            {
+                pergunta: "O que é uma variável?",
+                opcoes: ["Algo que é estável dentro do código", "Uma linguagem de programação", "É um contêiner nomeado que armazena dados durante a execução de um programa"],
+                correta: 2
+            },
+            {
+                pergunta: "Qual dessas é uma linguagem de programação?",
+                opcoes: ["Python", "index", "CSS"],
+                correta: 0
+            }
+            {
+                pergunta: "O que é o css?",
+                opcoes: ["correção supurvisoria do sistema","é a linguagem de estilização para arquivos html","uma forma de usar a calculadora"],
+                correta: 1
+            }
+        ];
+
+        // Função para embaralhar o array de perguntas
+        function embaralharArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        // Função para exibir a pergunta e suas opções
+        function exibirPergunta(indice) {
+            const perguntaAtual = perguntas[indice];
+            document.getElementById("pergunta").innerText = perguntaAtual.pergunta;
+
+            const opcoesDiv = document.getElementById("opcoes");
+            opcoesDiv.innerHTML = ""; // Limpa as opções anteriores
+
+            perguntaAtual.opcoes.forEach((opcao, index) => {
+                const button = document.createElement("button");
+                button.innerText = opcao;
+                button.onclick = () => verificarResposta(index, perguntaAtual.correta);
+                opcoesDiv.appendChild(button);
+            });
+
+            document.getElementById("proxima").style.display = "none"; // Esconde o botão de próxima pergunta
+        }
+
+        // Função para verificar se a resposta está correta
+        function verificarResposta(respostaEscolhida, respostaCorreta) {
+            const resultadoDiv = document.getElementById("resultado");
+            if (respostaEscolhida === respostaCorreta) {
+                resultadoDiv.innerText = "Resposta correta!";
+            } else {
+                resultadoDiv.innerText = "Resposta incorreta!";
+            }
+
+            document.getElementById("proxima").style.display = "block"; // Exibe o botão de próxima pergunta
+        }
+
+        // Função para avançar para a próxima pergunta
+        let indicePergunta = 0;
+        document.getElementById("proxima").onclick = () => {
+            indicePergunta++;
+            if (indicePergunta < perguntas.length) {
+                exibirPergunta(indicePergunta);
+                document.getElementById("resultado").innerText = "";
+            } else {
+                document.getElementById("quiz-container").innerHTML = "<h2>Fim do quiz!</h2>";
+            }
+        };
+
+        // Inicializa o quiz
+        embaralharArray(perguntas);
+        exibirPergunta(indicePergunta);
+    </script>
+</body>
+</html>
