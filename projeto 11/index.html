@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p is="paragrafo">um paragrafo</p>
+    <p class="paragrafozao">paragrafo 1</p>
+    <p class="paragrafozao">paragrafo 2</p>
+
+    <div id="lista">item 1</div>
+    <button onclick="adicionaritem()">ADICIONAR</button>
+    <script>
+        const parag = document.getElementById("paragrafo");
+        console.log(parag);
+        
+        const classes = document.querySelector(".paragrafozao");
+        console.log(classes);
+
+        const classes_todos = documemt.querySelectorall(".paragrafozao");
+        let numero = 1
+
+        if(numero = 1){
+            console.log(classes_todos[0].textcontent)
+        }
+        else if(numero = 2){
+            console.log(classes_todos[1].textcontent)
+        }
+        else{
+            console.log("ERRO!!!")
+        }
+        console.log(classes_todos[1]);
+
+        function adicionaritem(){
+            const item = document.createElement("p");
+            item.textContent = "textao";
+            document.getElementById("lista").appendChild(item);
+            console.log(item);
+
+
+        }
+    </script>
+</body>
+</html>
