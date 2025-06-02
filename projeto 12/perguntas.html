@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teclando Respostas</title>
+    <link rel="stylesheet" href="quiz.css">
+</head>
+<body>
+
+<div id="quiz-container">
+    <h2 id="pergunta">Pergunta</h2>
+    <div id="opcoes"></div>
+    <button id="proxima" style="display:none;">Próxima Pergunta</button>
+    <div id="resultado"></div>
+</div>
+
+<script>
+    const perguntas = [
+       {//1
+        pergunta: "O que é uma variável?",
+                opcoes: ["Algo que é estável dentro do código", "Uma linguagem de programação", "É um contêiner nomeado que armazena dados durante a execução de um programa"],
+                correta: 2,
+                pontos: 50,
+            },
+            {//2
+                pergunta: "Qual dessas é uma linguagem de programação?",
+                opcoes: ["Python", "index", "CSS"],
+                correta: 0,
+                pontos: 50,
+            },
+            {//3
+                pergunta: "O que é o css?",
+                opcoes: ["correção supervisoria do sistema","é a linguagem de estilização para arquivos html","uma forma de usar a calculadora"],
+                correta: 1,
+                pontos: 50,
+            },
+            {//4
+                pergunta: "O que é html?",
+                opcoes: ["é um bloco de construção da web","é um bloco de programação","É um peça que esta dentro de um computador"],
+                correta: 0,
+                pontos: 50,
+            },
+            {//5
+                pergunta: "O que é uma string?",
+                opcoes: ["É um tipo de número","É um comando especial","É uma sequencia de números,letras,caracteres"],
+                correta: 2,
+                pontos: 50,
+            },
+            {//6
+               pergunta: "A estrutura'switch' serve para:",
+                opcoes: ["Trocar de pagina automaticamente ","Executar diferentes blocos de codigos com base em valores","É um codigo que gera imagens"],
+                correta: 1,
+                pontos: 50,
+            },
+            {//7
+                pergunta: "Qual é o resultado de 3 + '3' em JavaScript",
+                opcoes: ["33","6","3.3"],
+                correta: 0,
+                pontos: 50,
+            },
+            {//8
+                pergunta: "Qual das alternativas contém todos os elementos corretos de uma estrutura basica HTML?",
+                opcoes: ["<html>,<script,<css>","<html>,<head>,<body>","<style>,<p>,<body>"],
+                correta: 1,
+                pontos: 50,
+            },
+            {//9
+                pergunta: "Onde o css deve ser inserido para funcionar em uma pagina HTML?",
+                opcoes: ["Apenas fora do html","Somento no JAVASCRIPT","Dentro da tag <style> ou em um arquivo externo"],
+                correta: 2,
+                pontos: 50,
+            },
+            {//10
+                pergunta: "Em HTML,qual tag é usada para criar um link clicavel",
+                opcoes: ["<a>","<href>","<link>"],
+                correta: 0,
+                pontos: 50,
+            },
+            {//11
+                pergunta: "Em CSS,qual propriedadde muda o tamanho do texto",
+                opcoes: ["font-size","font-text","text-size"],
+                correta: 1,
+                pontos: 50,
+            },
+            {//12
+                pergunta: "O que é pseudocódigo?",
+                opcoes: ["Um jeito simples de escrever algoritmos","Códigos secretos","Pseudo é nome do programador"],
+                correta: 0,
+                pontos: 50,
+            },
+            {//13
+                pergunta: "Como fazer um comentário no Python?",
+                opcoes: ["// comentário","<!-- comentário -->","# comentário"],
+                correta: 0,
+                pontos: 50,
+            },
+            {//14
+                pergunta: "Programação serve para:",
+                opcoes: ["Fazer site","Criar jogo","Automatizar tarefas"],
+                correta: 2,
+                pontos: 50,
+            },
+            {//15
+                pergunta: "quando você não declara uma variável qual valor ela tem?",   
+                opcoes: ["","0","nada"],
+                correta: 0,
+                pontos: 50,
+            },
+            {//16
+                pergunta: "qual resultado é interpretado como um número inteiro?",
+                opcoes: ["5 + '-2'","19 ÷ 2","'2' + '3'"],
+                correta: 2,
+                pontos: 50,
+            },
+            {//17
+                pergunta: "qual dessas variáveis é valida?",
+                opcoes: [" nOmE_1"," nome.um"," nome1°"],
+                correta: 0,
+                pontos: 50,
+            },
+            {//18
+              pergunta: "True e False são o quê?",
+              opcoes: ["Tipos de dado lógico (booleanos)","Tipos de variáveis inteiras","Comandos mágicos"],
+              correta: 0,
+              pontos: 50,
+            },
+            {//19
+              pergunta: "Qual é a função do else?",
+              opcoes: ["Fazer um laço","Testar uma condição","Executar quando o if for falso"],
+              correta: 2,
+              pontos: 50,
+            },
+            {//20
+             pergunta: " Qual a finalidade da lógica de programação?",
+             opcoes:["Deixar o código bonito","Resolver problemas de forma estruturada","Criar jogos apenas"],
+             correta: 1,
+             pontos: 50,
+            },
+    ];
+
+    let pontosTotais = 0;
+    let indicePergunta = 0;
+
+    function embaralharArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
+    function exibirPergunta(indice) {
+        const perguntaAtual = perguntas[indice];
+        document.getElementById("pergunta").innerText = perguntaAtual.pergunta;
+
+        const opcoesDiv = document.getElementById("opcoes");
+        opcoesDiv.innerHTML = "";
+
+        perguntaAtual.opcoes.forEach((opcao, index) => {
+            const button = document.createElement("button");
+            button.innerText = opcao;
+            button.onclick = () => verificarResposta(index, perguntaAtual.correta, perguntaAtual.pontos);
+            opcoesDiv.appendChild(button);
+        });
+
+        document.getElementById("proxima").style.display = "none";
+    }
+
+    function verificarResposta(respostaEscolhida, respostaCorreta, pontos) {
+        const resultadoDiv = document.getElementById("resultado");
+        if (respostaEscolhida === respostaCorreta) {
+            resultadoDiv.innerText = `Resposta correta!\nVocê ganhou ${pontos} pontos.`;
+            pontosTotais += pontos;
+        } else {
+            resultadoDiv.innerText = "Resposta incorreta!";
+        }
+
+        document.getElementById("proxima").style.display = "block";
+    }
+
+    document.getElementById("proxima").onclick = () => {
+        indicePergunta++;
+        if (indicePergunta < perguntas.length) {
+            exibirPergunta(indicePergunta);
+            document.getElementById("resultado").innerText = "";
+        } else {
+            document.getElementById("quiz-container").innerHTML = `
+                <h2>Fim do quiz!</h2>
+                <p>Sua pontuação final é: ${pontosTotais} pontos.</p>
+            `;
+        }
+    };
+
+    embaralharArray(perguntas);
+    exibirPergunta(indicePergunta);
+</script>
+
+</body>
+</html>
