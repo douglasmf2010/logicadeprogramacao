@@ -1,0 +1,168 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #0f172a; /* Fundo escuro - estilo tech */
+    color: #f8fafc;            /* Texto claro */
+    font-family: "Arial, Helvetica, sans-serif";
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    text-align: center;
+    
+    
+}
+
+h2 {
+    font-size: 7rem;
+    margin-top: 40px;
+    color: #ec3c3c; /* Rosacinzentado kkkk destaque */
+    font-family: "Arial, Helvetica, sans-serif";
+    text-align: center;
+}
+
+button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #38bdf8;
+    border: none;
+    border-radius: 6px;
+    color: #0f172a;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: "Arial, Helvetica, sans-serif";
+    gap: 10px;
+    flex-direction: column;
+    
+}
+
+button:hover {
+    background-color: #0ea5e9;
+    
+}
+
+a:hover {
+    background-color: #16a34a;
+}
+
+/* Responsividade a minha pica */
+@media (max-width: 600px) {}
+    h1 {
+        font-size: 2.2rem;
+    }
+
+    input[type="text"] {
+        width: 90%;
+    }
+    p {
+        font-family: "Arial, Helvetica, sans-serif";
+        font-size: 3rem;
+        color: #000000;
+        margin-bottom: 20px;
+        gap: 100px;
+        align-self: center;
+        
+    }
+        /* nao sei mais oque fazer mano kkkkkkkkk 
+        quero jogarrrrrrrrrrrrrr
+        preguica do krl meoooo
+        essa bosta de aula,
+        cara eu n aguento mais ajuda-me pls        
+        pronto gozei 👌👌👌👌👌👌👌👌
+         Cachorra do diabo fofa */
+    .img4{
+        width: 300px;
+        height: 300px;
+        position: absolute;
+        right: 80px;
+        top: 290px;
+        margin: 20px;
+    }
+    /* MANAGER ESQUIRE8*/
+    .img5{
+        width: 300px;
+        height: 300px;
+        position: absolute;
+        left: 80px;
+        top: 290px;
+        margin: 20px;
+    }
+
+    .container{
+        gap: 10px;
+    }
+    /* Caixa do quiz */
+#quiz-container {
+    
+    width: 700px; /* reduz a largura da caixa */
+    margin: 150px auto;
+    padding: 20px;
+    border: 5px solid #000000;
+    border-radius: 10px;
+    background-color: #f5f5f5;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    
+}
+
+/* Texto da pergunta */
+#pergunta {
+    font-size: 22px; /*aumenta o tamanho da rola*/
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #000000;
+}
+
+/* Botoes de opcso */
+#opcoes button {
+    display: block; /* E fanny */
+    width: 100%;
+    margin: 10px 0;
+    padding: 12px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+/* Botao "Proxima Puta" */
+#proxima {
+    padding: 10px 20px;
+    font-size: 18px;
+    margin: 20px auto 0 auto; 
+    color: #000000;
+    display: block; 
+    text-align: center; 
+}
+
+/* Resultado (megamente/burro pra krl) */
+#resultado {
+    margin-top: 20px; 
+    font-size: 20px;
+    font-weight: bold;
+    color: #000000;
+}
+
+.pontostotais{
+    font-family: "Arial, Helvetica, sans-serif";
+    color: #000000;
+}
+@keyframes piscar-vermelho {
+    0%   { background-color: #b40e0e; }
+}
+.fundo-erro {
+    animation: piscar-vermelho 1s ease-in-out 1;
+  }
+  @keyframes piscar-verde {
+    25%  { background-color: #119411; } /* uma torneira os 4 primeiros numeros */
+  }
+  .fundo-correto {
+    animation: piscar-verde 1s ease-in-out 1;
+  }
+  
+  
