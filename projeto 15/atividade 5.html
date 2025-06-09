@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var sm = Number(prompt("insira o seu saldo médio:"))
+
+        if(sm >= 0 && sm <= 200){
+            alert("nenhum credito")
+        }else if(sm >= 201 && sm <= 400){
+            alert("o credito é de " +(sm * 1.20))
+        }else if(sm >= 401 && sm <= 600){
+            alert("o credito é de " +(sm * 1.30))
+        }else if(sm >= 601){
+            alert("o credito é de " +(sm * 1.40))
+        }
+    </script>
+</body>
+</html>
