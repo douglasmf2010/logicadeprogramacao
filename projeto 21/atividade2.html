@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="estilo.css">
+    <style>
+        /* Estilo geral da página */
+body {
+    background-color: #000000;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Título */
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Card container */
+#conteiner {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+    text-align: left;
+}
+
+/* Labels */
+#conteiner label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #444;
+}
+
+/* Inputs */
+#conteiner input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+/* Botão */
+#conteiner button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+#conteiner button:hover {
+    background-color: #0056b3;
+}
+
+/* Resultado */
+#resultado {
+    margin-top: 20px;
+    font-size: 1.2em;
+    font-weight: 500;
+    color: #222;
+    text-align: center;
+}
+    </style>
+</head>
+<body>
+    <h1>SOMA</h1>
+    <section>
+    <div id="conteiner">
+        <label for="valor1">Digite o primeiro Valor</label>
+            <input type="number" id="valor1">
+        <label for="valor2">Digite o segundo Valor</label>
+            <input type="number" id="valor2">
+            <br>
+        <button type="submit" onclick="soma()">Somar</button>
+    </div>
+
+    <script>s
+        function soma(){
+            var v1 = parseFloat(document.getElementById("valor1").value);
+            var v2 = parseFloat(document.getElementById("valor2").value);
+            var resultado = v1 + v2;
+   
+            document.getElementById("resultado").innerHTML = "Resultado: " + resultado;
+        }
+    </script>
+    <div id="resultado"></div>
+    </section>
+</body>
+</html>
