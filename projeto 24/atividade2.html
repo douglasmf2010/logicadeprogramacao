@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var somapar = 0
+        var somaimpar = 0
+        var soma3 = 0 
+
+        for(let x = 0; x <= 10; x++){
+            if(x % 2 == 0){
+            somapar = somapar + x
+            }
+        }
+        alert("a soma dos pares de 0 a 10 é: " +somapar)
+
+        for(let y = 0; y <= 10; y++){
+            if(y % 2 == 1){
+            somaimpar = somaimpar + y
+            }
+        }
+        alert("a soma dos impares de 0 a 10 é: " +somaimpar)
+
+        for(let z = 0; z <= 500; z++){
+            if(z % 3 == 0){
+            soma3 = soma3 + z
+            }
+        }
+        alert("a soma dos multiplos de 3 de 0 a 10 é: " +soma3)
+
+        var numpedido = Number(prompt("voce deseja fazer a soma dos multiplos de qual numero(o numero deve estar entre 1 e 10)"))
+        var somapedido = 0 
+        var valorini = Number(prompt("voce deseja que os multiplos comecem em qual numero? "))
+        var valorfin = Number(prompt("voce deseja que os multiplos terminem em qual numero? "))
+
+        if(numpedido > 1 && numpedido < 10){
+
+            for(let a = valorini; a <= valorfin; a++){
+                if(a % numpedido == 0){
+                somapedido = somapedido + a
+                }
+            }
+            alert("a soma dos multiplos de " +numpedido+ " de 0 a 10 é: " +somapedido)
+        }else{
+            alert("o numero não esta na faixa permitida")
+        }
+
+        var numtab = Number(prompt("fale um numero para ser gerada uma tabuada"))
+        var mult = 0
+        var resul
+
+        for(let b = 1;b <= 10;b++){
+            alert(numtab+ " x " +b+ " = " +numtab * b)
+        }
+
+    </script>
+</body>
+</html>
