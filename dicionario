@@ -1,0 +1,169 @@
+Digite seu nome
+Douglas Mattozo Fernandes
+
+1-como criar um elemento:
+HTML, titulo?
+<h1></h1>
+
+2-como criar um elemento:
+HTML, div?
+<div></div>
+
+3-como utilizar um elemento:
+HTML, saltar linha?
+<br>
+
+4-como criar um elemento:
+HTML, linha horizontal?
+<hr>
+
+5-como criar um elemento:
+HTML, link?
+<a>
+
+6-como criar um elemento:
+HTML, imagem?
+<img>
+
+7-como criar um elemento:
+HTML, botao?
+<button></button>
+
+8-como estilizar um elemento:
+CSS, cor de fundo da tela?
+background-color
+
+9-como estilizar um elemento:
+CSS, cor da fonte?
+color
+
+10-como estilizar um elemento:
+CSS, colocar texto negrito?
+
+11-como estilizar um elemento:
+CSS, centralizar textos?
+font-weight:bold
+
+12-como estilizar um elemento:
+CSS, colocar bordas?
+border
+
+13-como estilizar um elemento:
+CSS, colocar bordas grossas?
+border-width
+
+14-como estilizar um elemento:
+CSS, colocar bordas duplas?
+border-style: double
+
+15-como estilizar um elemento:
+CSS, colocar borda pontilhada?
+border-style: dotted
+
+16-como estilizar um elemento:
+CSS, colocar borda tracejada?
+border-style: dashed
+
+17-como estilizar um elemento:
+CSS, colocar gradiente de 2 cores?
+background: linear-gradient(to right, red, blue);
+
+18-como estilizar um elemento:
+CSS, colocar gradiente de 3 cores?
+background: linear-gradient(to right, red, yellow 50%, blue);
+
+19-como estilizar um elemento:
+CSS, colocar gradiente de 2 cores vertical?
+background: linear-gradient(direcao, cor1, cor2):
+
+20-como estilizar um elemento:
+CSS, colocar gradiente de 2 cores horizontal?
+background: linear-gradient(to right, red, blue);
+
+21-como estilizar um elemento:
+CSS, colocar cor de fundo por  nome da color?
+background-color: blue;
+
+22-como estilizar um elemento:
+CSS, colocar cor de fundo por formato HEXadecimal?
+background-color: #000000
+
+23-como estilizar um elemento:
+CSS, colocar cor de fundo por formato RGB?
+background-color: rgb(0, 255, 0);
+
+24-como estilizar um elemento:
+CSS, colocar cor de fundo gradiente RGB?
+background: linear-gradient(to right, rgb(255, 0, 0), rgb(0, 0, 255));
+
+25-como estilizar um elemento:
+CSS, colocar cor de fundo gradiente HEX?
+background: linear-gradient(to right, #ff0000, #0000ff);
+
+26-como estilizar um elemento:
+CSS, colocar fonte italico?
+font-style: italic;
+
+27-como estilizar um elemento:
+CSS, centralizar no eixo X e eixo Y?
+display: flex;
+
+28-como estilizar um elemento:
+CSS, colocar imagem de fundo?
+background-image
+
+29-como estilizar um elemento:
+CSS, background-size: cover; serve pra que combinado com colocar imagem de fundo?
+ é usada para redimensionar a imagem de fundo de um elemento de modo que ela cubra toda a área do elemento, mantendo sua proporção original
+
+30-como estilizar um elemento:
+CSS, altura pixel?
+height: 200px;
+
+31-como estilizar um elemento:
+CSS, largura pixel?
+width: 200px;
+
+32-como estilizar um elemento:
+CSS, altura porcentagem?
+  height: 300px;
+
+33-como estilizar um elemento:
+CSS, largura porcentagem?
+width: 50%;
+
+34-como estilizar um elemento:
+CSS, como usar margin e pra que serve?
+margin
+
+35-como estilizar um elemento:
+CSS, como usar padding e pra que serve?
+padding
+
+36-como estilizar um elemento:
+CSS, sabe.. quando usamos a tag link, o texto fica uma linha embaixo dele, e o texto fica azul, ou seja, fica diferente do que a gente queria, como consertar isso e deixar o texto sem essas coisas?
+color: inherit;
+
+37-como estilizar um elemento:
+CSS, como usar sombra no css (pode pesquisar "sombra css" no google imagens)?
+box-shadow ou text-shadow
+
+38-como estilizar um elemento:
+CSS, pra que serve cursor: pointer; ?
+é usada para alterar a aparência do cursor do mouse quando ele passa sobre um elemento, indicando que o elemento é clicável ou interativo
+
+39-como estilizar um elemento:
+CSS, pra que serve opacity: 0.5; e  visibility: hidden; ?
+opacity: 0.5; e visibility: hidden; são usados para controlar a visibilidade de um elemento, mas com efeitos diferentes
+
+40-como estilizar um elemento:
+CSS, colocar bordas simples de cor vermelha?
+border: 1px solid red;
+
+41-como estilizar um elemento:
+HTML, como colocar uma classe css em um elemento?
+<p class="meu-elemento">
+
+42-como estilizar um elemento:
+HTML, como colocar uma id css em um elemento?
+você primeiro define um ID único para o elemento no HTML e, em seguida, usa esse ID no seletor CSS para aplicar os estilos desejados
