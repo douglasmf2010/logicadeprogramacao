@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peça ao usuário uma senha. Enquanto ele não digitar a senha correta (1234), continue pedindo. Quando digitar corretamente, mostre uma mensagem de "Acesso Liberado".</title>
+</head>
+<body>
+    <script>
+        let contador = 0
+        let senhacorreta = 1234
+        while(contador < 1){
+            let numsenha = Number(prompt("insira a sua senha"))
+            if(numsenha === senhacorreta){
+                alert("acesso liberado")
+                contador++
+            }else if(numsenha != senhacorreta){
+                alert("senha incorreta,tente novamente")
+            }
+        }
+    </script>
+</body>
+</html>

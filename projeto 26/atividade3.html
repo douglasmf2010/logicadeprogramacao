@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicite 10 números ao usuário (um por um) e conte quantos são pares e quantos são ímpares. Use enquanto e se/senao.</title>
+</head>
+<body>
+    <script>
+        let contador = 1
+        let numpar = 0
+        let numimpar = 0
+        while(contador <= 10){
+            let num = Number(prompt("insira o "+contador+"º numero"))
+            if(num % 2 === 0){
+                numpar++
+            }else if(num % 2 === 1){
+                numimpar++
+            }
+            contador++
+        }
+        alert("A quantidade de numeros pares é " +numpar+ " e a quantidade de numeros impares é " +numimpar)
+    </script>
+</body>
+</html>
