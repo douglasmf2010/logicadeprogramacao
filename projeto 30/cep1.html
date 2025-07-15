@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="buscar">Buscar CEP</button>
+    <pre id="resultado"></pre>
+
+
+    <script>
+        document.getElementById("buscar").addEventListener("click", () => {
+        fetch("https://viacep.com.br/ws/79110-523/json/")
+        .then(res => res.json())
+        .then(dados => {
+        document.getElementById("resultado").textContent =
+        JSON.stringify(dados, null, 2);
+    })
+        .catch(erro => {
+        document.getElementById("resultado").textContent =
+        "Erro ao buscar CEP";
+    });
+});
+</script>
+
+
+
+</body>
+</html>
