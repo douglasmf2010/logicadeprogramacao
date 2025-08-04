@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<!--Escrever um algoritmo que leia uma quantidade de números que deve ser
+lidos e conte quantos deles estão nos seguintes intervalos: [0.25], [26,50],
+[51,75] e [76,100].-->
+<body>
+    <script>
+        var qnt = Number(prompt("insira a quantidade de numeros para ser colocados nos intervalos"))
+        var f1 = 0, f2 = 0, f3 = 0, f4 = 0
+        while(qnt != 0){
+            var num = Number(prompt("insira um numero 0 a 100"))
+            if(num >= 0 && num <= 25){
+                alert("o numero esta no primeiro intervalo")
+                f1 += 1
+            }else if(num >= 26 && num <= 50){
+                alert("o numero esta no segundo intervalo")
+                f2 += 1
+            }else if(num >= 51 && num <= 75){
+                alert("o numero esta no terceiro intervalo")
+                f3 += 1
+            }else if(num >= 76 && num <= 100){
+                alert("o numero esta no quarto intervalo")
+                f4 += 1
+            }
+            qnt--
+        }
+        alert("a quantidade de numeros na primeira faixa é " +f1)
+        alert("a quantidade de numeros na segunda faixa é " +f2)
+        alert("a quantidade de numeros na terceira faixa é " +f3)
+        alert("a quantidade de numeros na quarta faixa é " +f4)
+    </script>
+</body>
+</html>
