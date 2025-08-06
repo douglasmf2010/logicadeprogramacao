@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<!--Crie um programa que leia o nome, idade e sintomas de um paciente. Informe se ele é prioritário (idade ≥ 60 ou sintomas graves) ou não prioritário.-->
+<body>
+    <script>
+        var nomePaciente
+        var idade = Number(prompt("Insira sua idade."))
+        var sintomas = Number(prompt("Digite o número correspondente com os sintomas:\n\n1. Cansaço ou fadiga leve\n2. Dores no corpo / Dor de cabeça\n3. Febre baixa\n4. Tosse persistente\n5. Falta de ar\n6. Perda de consciência"))
+        var Cansaçooufadigaleve = 1, DoresnocorpoouDordecabeça = 2, Febrebaixa = 3, Tossepersistente = 4, Faltadear = 5, Perdadeconsciência = 6
+        
+        if(sintomas === Cansaçooufadigaleve){
+            alert("voce não esta na fila prioritaria")
+        }else if(sintomas === DoresnocorpoouDordecabeça){
+            alert("voce não esta na fila prioritaria")
+        }else if(sintomas === Febrebaixa){
+            alert("voce não esta na fila prioritaria")
+        }else if(sintomas === Tossepersistente){
+            alert("voce esta na fila prioritaria")
+        }else if(sintomas === Faltadear){
+            alert("voce esta na fila prioritaria")
+        }else if(sintomas === Perdadeconsciência){
+            alert("voce esta na fila prioritaria")
+        }else if(idade >= 60){
+            alert("voce esta na fila prioritaria")
+        }else{
+            alert("voce não esta na fila prioritaria")
+        }
+    </script>
+</body>
+</html>
