@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<!--Cadastre a quantidade de pães produzidos no dia. Enquanto a produção for menor que 100, continue produzindo.-->
+<body>
+    <script>
+        var paes = Number(prompt("insira a quantidade de pães produzidos pela padaria"))
+        var contador
+
+        if(paes < 100){
+            while(paes < 100){
+                var novopaes = Number(prompt("a meta não foi atingida,insira a quantidade de pães que foi produzidos agora"))
+                paes =+ novopaes
+            }
+            alert("a meta foi atingida")
+        }else{
+            alert("a meta já foi atingida")
+        }
+    </script>
+</body>
+</html>
