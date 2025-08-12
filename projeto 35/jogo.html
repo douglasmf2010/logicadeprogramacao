@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .tabuleiro {
+      display: flex;
+      flex-wrap: nowrap; /* não quebra a linha */
+      gap: 5px;
+      margin: 50px auto;
+      /* largura vai ser soma dos quadrados + gaps */
+      width: calc(25 * 60px + 24 * 5px); /* 25 quadrados de 60px e 24 gaps */
+      overflow-x: auto; /* adiciona rolagem horizontal se não couber na tela */
+      text-align: center;
+    }
+    .quadrado {
+      width: 60px;
+      height: 60px;
+      background-color: #4CAF50;
+      border: 2px solid #333;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      color: white;
+      font-size: 20px;
+      flex-shrink: 0; /* evita encolher */
+    }
+    h1{
+        height: 50px;
+        width: 250px;
+        text-align: center;
+    }
+    body{
+        background-image: url(https://t3.ftcdn.net/jpg/08/47/23/78/240_F_847237865_Yy2dXMCkK8KSW6zuqbGJLkheeuPkC4a8.jpg);
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+
+    }
+  </style>
+</head>
+<body style="text-align:center; font-family: Arial; padding-top:50px;">
+
+    <div id="numero" style="font-size: 100px; margin: 20px;">1</div>
+
+    <button onclick="gerarNumero()">girar dado</button>
+
+  <div class="tabuleiro" id="tabuleiro">
+    <!-- 25 quadrados -->
+    <div class="quadrado">1</div>
+    <div class="quadrado">2</div>
+    <div class="quadrado">3</div>
+    <div class="quadrado">4</div>
+    <div class="quadrado">5</div>
+
+    <div class="quadrado">6</div>
+    <div class="quadrado">7</div>
+    <div class="quadrado">8</div>
+    <div class="quadrado">9</div>
+    <div class="quadrado">10</div>
+
+    <div class="quadrado">11</div>
+    <div class="quadrado">12</div>
+    <div class="quadrado">13</div>
+    <div class="quadrado">14</div>
+    <div class="quadrado">15</div>
+
+    <div class="quadrado">16</div>
+    <div class="quadrado">17</div>
+    <div class="quadrado">18</div>
+    <div class="quadrado">19</div>
+    <div class="quadrado">20</div>
+
+    <div class="quadrado">21</div>
+    <div class="quadrado">22</div>
+    <div class="quadrado">23</div>
+    <div class="quadrado">24</div>
+    <div class="quadrado">25</div>
+  </div>
+    <script>
+        function gerarNumero() {
+            const n = Math.floor(Math.random() * 6) + 1;
+            document.getElementById('numero').innerText = n;
+    }
+    </script>
+
+</body>
+</html>
