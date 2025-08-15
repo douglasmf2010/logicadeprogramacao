@@ -10,7 +10,7 @@
       flex-wrap: nowrap;
       gap: 5px;
       margin: 50px auto;
-      width: calc(25 * 60px + 24 * 5px);
+      width: calc(31 * 60px + 30 * 5px);
       overflow-x: auto;
       text-align: center;
     }
@@ -63,24 +63,108 @@
       font-size: 100px;
       margin: 20px;
     }
+
+    #pontuacao {
+      font-size: 30px;
+      margin: 10px;
+      color: white;
+      font-weight: bold;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .modal-content {
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 22px;
+      max-width: 400px;
+      width: 90%;
+    }
+
+    .modal input {
+      font-size: 20px;
+      padding: 5px;
+      width: 80px;
+      text-align: center;
+    }
+
+    .modal button {
+      margin-top: 15px;
+    }
   </style>
 </head>
 <body>
 
   <div id="numero">1</div>
-  <button onclick="gerarNumero()">Girar Dado</button>
+  <button id="botaoDado" onclick="gerarNumero()">Girar Dado</button>
+  <div id="pontuacao">Pontuação: 0 | Jogadas restantes: 5</div>
 
-  <div class="tabuleiro" id="tabuleiro">
-    <!-- Quadrados serão adicionados via JS -->
+  <div class="tabuleiro" id="tabuleiro"></div>
+
+  <!-- Modal -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <p id="pergunta"></p>
+      <input type="number" id="respostaInput" />
+      <br />
+      <button onclick="verificarResposta()">Responder</button>
+    </div>
   </div>
 
   <script>
-    const totalCasas = 25;
+    const totalCasas = 31;
     const tabuleiro = document.getElementById('tabuleiro');
-    let posicaoAtual = 0; // Começa no quadrado 0 (primeiro)
     const quadrados = [];
+    let posicaoAtual = 0;
+    let pontuacao = 0;
+    let jogadasRestantes = 5;
+    let respostaEsperada = 0;
 
-    // Criar 25 quadrados numerados e guardar em array
+    const perguntas = [
+      { pergunta: "7 × 8 =", resposta: 56 },
+      { pergunta: "45 ÷ 5 =", resposta: 9 },
+      { pergunta: "12 + 7 × 2 =", resposta: 38},
+      { pergunta: "81 ÷ 9 =", resposta: 9 },
+      { pergunta: "9² =", resposta: 81 },
+      { pergunta: "√64 =", resposta: 8 },
+      { pergunta: "6 × 6 + 4 =", resposta: 40 },
+      { pergunta: "100 ÷ 4 =", resposta: 25 },
+      { pergunta: "13 × 3 =", resposta: 39 },
+      { pergunta: "8² - 10 =", resposta: 54 },
+      { pergunta: "√49 + 5 =", resposta: 12 },
+      { pergunta: "10 × 10 =", resposta: 100 },
+      { pergunta: "20 + 15 ÷ 5 =", resposta: 7 },
+      { pergunta: "144 ÷ 12 =", resposta: 12 },
+      { pergunta: "7 × 5 + 3 =", resposta: 38 },
+      { pergunta: "11² =", resposta: 121 },
+      { pergunta: "√81 × 2 =", resposta: 18 },
+      { pergunta: "100 - 36 =", resposta: 64   },
+      { pergunta: "8 + 12 ÷ 4 =", resposta: 5 },
+      { pergunta: "64 ÷ 8 + 6 =", resposta: 14 },
+      { pergunta: "25 × 2 - 5 =", resposta: 45 },
+      { pergunta: "√100 + 9 =", resposta: 19 },
+      { pergunta: "15 × 3 =", resposta: 45 },
+      { pergunta: "90 ÷ 10 × 2 =", resposta: 18 },
+      { pergunta: "12 × 4 - 8 =", resposta: 40 },
+      { pergunta: "5² + 3 =", resposta: 28 },
+      { pergunta: "√121 × 2 =", resposta: 22 },
+      { pergunta: "10 × 5 - 15 =", resposta: 35 },
+      { pergunta: "8 × 8 + 4 =", resposta: 68 },
+      { pergunta: "200 ÷ 4 =", resposta: 50 },
+      { pergunta: "14 + 6 × 2 =", resposta: 40 }
+    ];
+
     for (let i = 1; i <= totalCasas; i++) {
       const quadrado = document.createElement('div');
       quadrado.classList.add('quadrado');
@@ -89,28 +173,62 @@
       quadrados.push(quadrado);
     }
 
-    // Criar o peão
     const peao = document.createElement('div');
     peao.classList.add('peao');
-    quadrados[posicaoAtual].appendChild(peao); // adiciona ao primeiro quadrado
+    quadrados[posicaoAtual].appendChild(peao);
 
-    // Função para girar dado
     function gerarNumero() {
+      if (jogadasRestantes <= 0) return;
+
       const n = Math.floor(Math.random() * 6) + 1;
       document.getElementById('numero').innerText = n;
       moverPeao(n);
+      jogadasRestantes--;
+      atualizarStatus();
     }
 
-    // Função para mover peão
     function moverPeao(valor) {
-      // Remove peão da posição atual
       quadrados[posicaoAtual].removeChild(peao);
-
-      // Calcula nova posição (sem passar do último quadrado)
       posicaoAtual = Math.min(posicaoAtual + valor, totalCasas - 1);
-
-      // Adiciona peão à nova posição
       quadrados[posicaoAtual].appendChild(peao);
+      mostrarPergunta(posicaoAtual);
+    }
+
+    function mostrarPergunta(posicao) {
+      const modal = document.getElementById('modal');
+      const perguntaEl = document.getElementById('pergunta');
+      const input = document.getElementById('respostaInput');
+
+      input.value = '';
+      perguntaEl.innerText = perguntas[posicao].pergunta;
+      respostaEsperada = perguntas[posicao].resposta;
+      modal.style.display = 'flex';
+      input.focus();
+    }
+
+    function verificarResposta() {
+      const input = document.getElementById('respostaInput');
+      const respostaJogador = parseInt(input.value);
+
+      if (respostaJogador === respostaEsperada) {
+        pontuacao += respostaEsperada;
+        alert(`✅ Correto! Você ganhou ${respostaEsperada} pontos.`);
+      } else {
+        alert(`❌ Errado. A resposta correta era ${respostaEsperada}.`);
+      }
+
+      document.getElementById('modal').style.display = 'none';
+      atualizarStatus();
+
+      if (jogadasRestantes === 0) {
+        document.getElementById('botaoDado').disabled = true;
+        alert("🏁 Fim de jogo! Sua pontuação final foi: " + pontuacao);
+      }
+    }
+
+    function atualizarStatus() {
+      document.getElementById('pontuacao').innerText =
+        `Pontuação: ${pontuacao} | Jogadas restantes: ${jogadasRestantes}`;
     }
   </script>
 </body>
