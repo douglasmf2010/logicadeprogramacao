@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>math dash</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
+  
+    body {
+      font-family: 'MedievalSharp', cursive;
+      text-align: center;
+      padding: 40px 10px;
+      background-image: url('https://t3.ftcdn.net/jpg/08/47/23/78/240_F_847237865_Yy2dXMCkK8KSW6zuqbGJLkheeuPkC4a8.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      color: #f0e6c0;
+      position: relative;
+    }
+  
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      z-index: -1;
+    }
+  
+    #numero {
+      font-size: 100px;
+      margin: 10px 0;
+      color: #ffd700;
+      text-shadow: 2px 2px 5px #000;
+    }
+  
+    #pontuacao {
+      font-size: 28px;
+      margin-bottom: 20px;
+      font-weight: bold;
+      color: #fff3c1;
+      text-shadow: 1px 1px 3px #000;
+    }
+  
+    .tabuleiro {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 5px;
+      margin: 40px auto;
+      padding: 10px;
+      width: fit-content;
+      max-width: 95vw;
+      overflow-x: auto;
+      background-color: rgba(30, 30, 30, 0.6);
+      border: 4px solid #a67c52;
+      border-radius: 10px;
+      box-shadow: 0 0 20px #000;
+    }
+  
+    .quadrado {
+      width: 60px;
+      height: 60px;
+      background: #3e2723;
+      border: 2px solid #a67c52;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      color: #fff4c1;
+      font-size: 18px;
+      flex-shrink: 0;
+      position: relative;
+      box-shadow: inset 0 0 5px #000;
+    }
+  
+    .peao {
+      width: 20px;
+      height: 20px;
+      background-color: #c62828;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      position: absolute;
+      bottom: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      box-shadow: 0 0 10px #000;
+    }
+  
+    button {
+      font-family: 'MedievalSharp', cursive;
+      font-size: 22px;
+      padding: 12px 28px;
+      margin: 10px;
+      border: 3px solid #8b5e3c;
+      border-radius: 10px;
+      background: linear-gradient(to bottom, #4e342e, #3e2723);
+      color: #f0e6c0;
+      cursor: pointer;
+      transition: 0.3s ease;
+      box-shadow: 0 0 10px #000;
+    }
+  
+    button:hover {
+      background: linear-gradient(to bottom, #6d4c41, #4e342e);
+      color: #fff7d6;
+      box-shadow: 0 0 15px #ffd700;
+      transform: scale(1.05);
+    }
+  
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+  
+    .modal-content {
+      background: linear-gradient(#fef6dc, #e0cfa9);
+      border: 4px solid #a67c52;
+      border-radius: 15px;
+      padding: 30px;
+      text-align: center;
+      font-size: 22px;
+      max-width: 400px;
+      width: 90%;
+      box-shadow: 0 0 30px #000;
+      color: #3b2f2f;
+    }
+  
+    .modal-content p {
+      margin-bottom: 15px;
+    }
+  
+    .modal-content input {
+      font-size: 22px;
+      padding: 8px;
+      width: 80px;
+      text-align: center;
+      border: 2px solid #8b5e3c;
+      border-radius: 5px;
+    }
+  
+    .modal-content button {
+      margin-top: 20px;
+    }
+  
+    @media (max-width: 600px) {
+      #numero {
+        font-size: 60px;
+      }
+  
+      .quadrado {
+        width: 50px;
+        height: 50px;
+        font-size: 16px;
+      }
+  
+      button {
+        font-size: 18px;
+        padding: 10px 20px;
+      }
+  
+      .modal-content {
+        font-size: 18px;
+      }
+    }
+  </style>  
+</head>
+<body>
+
+  <div id="numero">1</div>
+  <button id="botaoDado" onclick="gerarNumero()">Girar Dado</button>
+  <div id="pontuacao">Pontuação: 0 | Jogadas restantes: 5</div>
+
+  <div class="tabuleiro" id="tabuleiro"></div>
+
+  <!-- Modal -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <p id="pergunta"></p>
+      <input type="number" id="respostaInput" />
+      <br />
+      <button onclick="verificarResposta()">Responder</button>
+    </div>
+  </div>
+
+  <script>
+    const totalCasas = 31;
+    const tabuleiro = document.getElementById('tabuleiro');
+    const quadrados = [];
+    let posicaoAtual = 0;
+    let pontuacao = 0;
+    let jogadasRestantes = 5;
+    let respostaEsperada = 0;
+
+    const perguntas = [
+    /*1*/   { pergunta: "7 × 8 =", resposta: 56 },
+    /*2*/   { pergunta: "45 ÷ 5 =", resposta: 9 },
+    /*3*/   { pergunta: "12 + 7 × 2 =", resposta: 38},
+    /*4*/   { pergunta: "81 ÷ 9 =", resposta: 9 },
+    /*5*/   { pergunta: "9² =", resposta: 81 },
+    /*6*/   { pergunta: "√64 =", resposta: 8 },
+    /*7*/   { pergunta: "6 × 6 + 4 =", resposta: 40 },
+    /*8*/   { pergunta: "100 ÷ 4 =", resposta: 25 },
+    /*9*/   { pergunta: "13 × 3 =", resposta: 39 },
+    /*10*/  { pergunta: "8² - 10 =", resposta: 54 },
+    /*11*/  { pergunta: "√49 + 5 =", resposta: 12 },
+    /*12*/  { pergunta: "10 × 10 =", resposta: 100 },
+    /*13*/  { pergunta: "20 + 15 ÷ 5 =", resposta: 7 },
+    /*14*/  { pergunta: "144 ÷ 12 =", resposta: 12 },
+    /*15*/  { pergunta: "7 × 5 + 3 =", resposta: 38 },
+    /*16*/  { pergunta: "11² =", resposta: 121 },
+    /*17*/  { pergunta: "√81 × 2 =", resposta: 18 },
+    /*18*/  { pergunta: "100 - 36 =", resposta: 64   },
+    /*19*/  { pergunta: "8 + 12 ÷ 4 =", resposta: 5 },
+    /*20*/  { pergunta: "64 ÷ 8 + 6 =", resposta: 14 },
+    /*21*/  { pergunta: "25 × 2 - 5 =", resposta: 45 },
+    /*22*/  { pergunta: "25 × 2 - 5 =", resposta: 45 },
+    /*23*/  { pergunta: "√100 + 9 =", resposta: 19 },
+    /*24*/  { pergunta: "15 × 3 =", resposta: 45 },
+    /*25*/  { pergunta: "90 ÷ 10 × 2 =", resposta: 18 },
+    /*26*/  { pergunta: "12 × 4 - 8 =", resposta: 40 },
+    /*27*/  { pergunta: "5² + 3 =", resposta: 28 },
+    /*28*/  { pergunta: "√121 × 2 =", resposta: 22 },
+    /*29*/  { pergunta: "10 × 5 - 15 =", resposta: 35 },
+    /*30*/  { pergunta: "8 × 8 + 4 =", resposta: 68 },
+    /*31*/  { pergunta: "200 ÷ 4 =", resposta: 50 },
+    /*32*/  { pergunta: "14 + 6 × 2 =", resposta: 40 }
+    ];
+
+    for (let i = 1; i <= totalCasas; i++) {
+      const quadrado = document.createElement('div');
+      quadrado.classList.add('quadrado');
+      quadrado.innerText = i;
+      tabuleiro.appendChild(quadrado);
+      quadrados.push(quadrado);
+    }
+
+    const peao = document.createElement('div');
+    peao.classList.add('peao');
+    quadrados[posicaoAtual].appendChild(peao);
+
+    function gerarNumero() {
+      if (jogadasRestantes <= 0) return;
+
+      const n = Math.floor(Math.random() * 6) + 1;
+      document.getElementById('numero').innerText = n;
+      moverPeao(n);
+      jogadasRestantes--;
+      atualizarStatus();
+    }
+
+    function moverPeao(valor) {
+      quadrados[posicaoAtual].removeChild(peao);
+      posicaoAtual = Math.min(posicaoAtual + valor, totalCasas - 1);
+      quadrados[posicaoAtual].appendChild(peao);
+      mostrarPergunta(posicaoAtual);
+    }
+
+    function mostrarPergunta(posicao) {
+      const modal = document.getElementById('modal');
+      const perguntaEl = document.getElementById('pergunta');
+      const input = document.getElementById('respostaInput');
+
+      input.value = '';
+      perguntaEl.innerText = perguntas[posicao].pergunta;
+      respostaEsperada = perguntas[posicao].resposta;
+      modal.style.display = 'flex';
+      input.focus();
+    }
+
+    function verificarResposta() {
+      const input = document.getElementById('respostaInput');
+      const respostaJogador = parseInt(input.value);
+
+      if (respostaJogador === respostaEsperada) {
+        pontuacao += respostaEsperada;
+        alert(`✅ Correto! Você ganhou ${respostaEsperada} pontos.`);
+      } else {
+        alert(`❌ Errado. A resposta correta era ${respostaEsperada}.`);
+      }
+
+      document.getElementById('modal').style.display = 'none';
+      atualizarStatus();
+
+      if (jogadasRestantes === 0) {
+        document.getElementById('botaoDado').disabled = true;
+        alert("🏁 Fim de jogo! Sua pontuação final foi: " + pontuacao);
+      }
+    }
+
+    function atualizarStatus() {
+      document.getElementById('pontuacao').innerText =
+        `Pontuação: ${pontuacao} | Jogadas restantes: ${jogadasRestantes}`;
+    }
+  </script>
+</body>
+</html>
