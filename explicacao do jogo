@@ -1,0 +1,201 @@
+const totalCasas = 31;
+Cria uma constante chamada totalCasas que armazena o número total de casas do tabuleiro.
+
+Como é constante, o valor não muda durante o jogo.
+
+js
+Copiar código
+const tabuleiro = document.getElementById('tabuleiro');
+Aqui pegamos o elemento HTML que tem o id "tabuleiro".
+
+Vamos usar essa variável para colocar as casas do tabuleiro dentro da página.
+
+js
+Copiar código
+const quadrados = [];
+Criamos um array vazio chamado quadrados.
+
+Esse array vai guardar as referências (os objetos) de cada casa que criarmos no tabuleiro.
+
+js
+Copiar código
+let posicaoAtual = 0;
+let pontuacao = 0;
+let jogadasRestantes = 5;
+let respostaEsperada = 0;
+Essas são variáveis que mudam durante o jogo:
+
+posicaoAtual: onde o peão está agora (começa na casa 0, que é a primeira).
+
+pontuacao: os pontos que o jogador tem (começa em zero).
+
+jogadasRestantes: quantas vezes o jogador ainda pode girar o dado (começa com 5).
+
+respostaEsperada: a resposta correta da pergunta atual.
+
+js
+Copiar código
+const perguntas = [
+  { pergunta: "7 × 8 =", resposta: 56 },
+  { pergunta: "45 ÷ 5 =", resposta: 9 },
+  // ... (outras perguntas)
+  { pergunta: "14 + 6 × 2 =", resposta: 40 }
+];
+Um array com objetos, onde cada objeto representa uma pergunta e sua resposta correta.
+
+A posição do array corresponde à casa do tabuleiro.
+
+js
+Copiar código
+for (let i = 1; i <= totalCasas; i++) {
+  const quadrado = document.createElement('div');
+  quadrado.classList.add('quadrado');
+  quadrado.innerText = i;
+  tabuleiro.appendChild(quadrado);
+  quadrados.push(quadrado);
+}
+Loop que roda de 1 até 31 (totalCasas).
+
+Para cada número:
+
+Cria uma nova div (uma casa).
+
+Dá a ela a classe "quadrado" para estilizar (no CSS).
+
+Coloca o número da casa como texto dentro dela.
+
+Adiciona essa casa ao elemento tabuleiro no HTML (para aparecer na página).
+
+Guarda essa casa no array quadrados.
+
+js
+Copiar código
+const peao = document.createElement('div');
+peao.classList.add('peao');
+quadrados[posicaoAtual].appendChild(peao);
+Cria o peão do jogo como uma div com a classe "peao".
+
+Coloca o peão dentro da casa que está na posição atual (inicialmente, a primeira casa).
+
+Função gerarNumero
+js
+Copiar código
+function gerarNumero() {
+  if (jogadasRestantes <= 0) return;
+
+  const n = Math.floor(Math.random() * 6) + 1;
+  document.getElementById('numero').innerText = n;
+  moverPeao(n);
+  jogadasRestantes--;
+  atualizarStatus();
+}
+Essa função é chamada quando o jogador clica no botão "Girar Dado".
+
+Primeiro, verifica se ainda tem jogadas restantes; se não tiver, não faz nada.
+
+Depois, gera um número aleatório entre 1 e 6 (como um dado de verdade).
+
+Atualiza o número mostrado na tela.
+
+Chama a função moverPeao(n) para mover o peão.
+
+Diminui em 1 o número de jogadas restantes.
+
+Atualiza a pontuação e as jogadas na tela.
+
+Função moverPeao
+js
+Copiar código
+function moverPeao(valor) {
+  quadrados[posicaoAtual].removeChild(peao);
+  posicaoAtual = Math.min(posicaoAtual + valor, totalCasas - 1);
+  quadrados[posicaoAtual].appendChild(peao);
+  mostrarPergunta(posicaoAtual);
+}
+Recebe um número (valor) que indica quantas casas o peão deve andar.
+
+Remove o peão da casa atual.
+
+Calcula a nova posição do peão, somando o valor ao posicaoAtual.
+
+Usa Math.min para garantir que o peão não ultrapasse a última casa (31).
+
+Coloca o peão na nova casa.
+
+Chama a função mostrarPergunta para abrir a pergunta da casa atual.
+
+Função mostrarPergunta
+js
+Copiar código
+function mostrarPergunta(posicao) {
+  const modal = document.getElementById('modal');
+  const perguntaEl = document.getElementById('pergunta');
+  const input = document.getElementById('respostaInput');
+
+  input.value = '';
+  perguntaEl.innerText = perguntas[posicao].pergunta;
+  respostaEsperada = perguntas[posicao].resposta;
+  modal.style.display = 'flex';
+  input.focus();
+}
+Essa função mostra a janela (modal) com a pergunta da casa onde o peão parou.
+
+Pega o elemento do modal, do texto da pergunta e do input para resposta.
+
+Limpa o campo de resposta (para o jogador digitar de novo).
+
+Atualiza o texto da pergunta para a pergunta da casa atual.
+
+Define respostaEsperada com o valor correto daquela pergunta.
+
+Exibe o modal na tela.
+
+Coloca o cursor no campo de resposta para facilitar a digitação.
+
+Função verificarResposta
+js
+Copiar código
+function verificarResposta() {
+  const input = document.getElementById('respostaInput');
+  const respostaJogador = parseInt(input.value);
+
+  if (respostaJogador === respostaEsperada) {
+    pontuacao += respostaEsperada;
+    alert(`✅ Correto! Você ganhou ${respostaEsperada} pontos.`);
+  } else {
+    alert(`❌ Errado. A resposta correta era ${respostaEsperada}.`);
+  }
+
+  document.getElementById('modal').style.display = 'none';
+  atualizarStatus();
+
+  if (jogadasRestantes === 0) {
+    document.getElementById('botaoDado').disabled = true;
+    alert("🏁 Fim de jogo! Sua pontuação final foi: " + pontuacao);
+  }
+}
+Essa função é chamada quando o jogador clica em "Responder" no modal.
+
+Pega a resposta que o jogador digitou no input.
+
+Converte essa resposta para número com parseInt.
+
+Compara a resposta do jogador com a resposta correta (respostaEsperada).
+
+Se for igual, o jogador ganha pontos (a própria resposta certa) e aparece uma mensagem de acerto.
+
+Se errar, mostra uma mensagem com a resposta correta.
+
+Fecha o modal.
+
+Atualiza a pontuação e jogadas na tela.
+
+Se não tiver mais jogadas restantes, desabilita o botão de girar dado e mostra o resultado final.
+
+Função atualizarStatus
+js
+Copiar código
+function atualizarStatus() {
+  document.getElementById('pontuacao').innerText =
+    `Pontuação: ${pontuacao} | Jogadas restantes: ${jogadasRestantes}`;
+}
